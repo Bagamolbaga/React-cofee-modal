@@ -30,44 +30,43 @@ export default function App() {
     { id: 2, tittle: "Spartak", price: 40, checked: false }
   ]);
 
-  let milkOptionsHandler = (id) => {
-    setMilkOptions(
-      milkOptions.map((item) => {
-        if (item.id === id) {
-          item.checked = true;
-        } else {
-          item.checked = false;
-        }
-        return item;
-      })
-    );
-  };
 
-  let syroupOptionsHandler = (id) => {
-    setSyroupOptions(
-      syroupOptions.map((item) => {
-        if (item.id === id) {
-          item.checked = true;
-        } else {
-          item.checked = false;
-        }
-        return item;
-      })
-    );
-  };
-
-  let chocoladeOptionsHandler = (id) => {
-    setChocoladeOptions(
-      chocoladeOptions.map((item) => {
-        if (item.id === id &&item.checked === false) {
-          item.checked = true;
-        } else if (item.id === id & item.checked === true) {
-          item.checked = false;
-        }
-        return item;
-      })
-    );
-  };
+  let radioButtonsHandler = (event, id) => {
+    if(event.target.name === 'milk'){
+      setMilkOptions(
+        milkOptions.map((item) => {
+          if (item.id === id) {
+            item.checked = true;
+          } else {
+            item.checked = false;
+          }
+          return item;
+        })
+      );
+    } else if(event.target.name === 'syroup') {
+      setSyroupOptions(
+        syroupOptions.map((item) => {
+          if (item.id === id) {
+            item.checked = true;
+          } else {
+            item.checked = false;
+          }
+          return item;
+        })
+      );
+    } else if(event.target.name === 'chocolade') {
+      setChocoladeOptions(
+        chocoladeOptions.map((item) => {
+          if (item.id === id &&item.checked === false) {
+            item.checked = true;
+          } else if (item.id === id & item.checked === true) {
+            item.checked = false;
+          }
+          return item;
+        })
+      );
+    }
+  }
 
   let getSum = () => {
     let mSum = milkOptions.filter((item) => item.checked);
@@ -122,11 +121,9 @@ export default function App() {
         milkOptions,
         syroupOptions,
         chocoladeOptions,
-        milkOptionsHandler,
-        syroupOptionsHandler,
-        chocoladeOptionsHandler,
         getSum,
-        resetHandler
+        resetHandler,
+        radioButtonsHandler
       }}
     >
       
