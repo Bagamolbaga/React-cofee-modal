@@ -30,6 +30,9 @@ export default function App() {
     { id: 2, tittle: "Spartak", price: 40, checked: false }
   ]);
 
+  React.useEffect(()=>{
+    getSum();
+  },[milkOptions, syroupOptions, chocoladeOptions])
 
   let radioButtonsHandler = (event, id) => {
     if(event.target.name === 'milk'){
@@ -57,9 +60,9 @@ export default function App() {
     } else if(event.target.name === 'chocolade') {
       setChocoladeOptions(
         chocoladeOptions.map((item) => {
-          if (item.id === id &&item.checked === false) {
+          if (item.id === id && item.checked === false) {
             item.checked = true;
-          } else if (item.id === id & item.checked === true) {
+          } else if (item.id === id && item.checked === true) {
             item.checked = false;
           }
           return item;
@@ -80,6 +83,7 @@ export default function App() {
     cSum.forEach(item => {
       cEl += item.price;
     })
+  
 
     let SUM = 125;
 
@@ -121,20 +125,15 @@ export default function App() {
         milkOptions,
         syroupOptions,
         chocoladeOptions,
-        getSum,
         resetHandler,
         radioButtonsHandler
-      }}
-    >
+      }}>
       
-        <Header />
-        <MilkOptions />
-
-        <SyroupOptions />
-
-        <ChocoladeOptions />
-        <TotalSum />
+      <Header />
+      <MilkOptions />
+      <SyroupOptions />
+      <ChocoladeOptions />
+      <TotalSum />
       
     </Context.Provider>
-  );
-}
+  )}
