@@ -30,12 +30,30 @@ export default function App() {
     { id: 2, tittle: "Spartak", price: 40, checked: false }
   ]);
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
+    let getSum = () => {
+      let mSum = milkOptions.filter((item) => item.checked);
+      let sSum = syroupOptions.filter((item) => item.checked);
+      let cSum = chocoladeOptions.filter((item) => item.checked);
+
+      let mEl = mSum.length !== 0 ? mSum[0].price : 0;
+      let sEl = sSum.length !== 0 ? sSum[0].price : 0;
+      let cEl = cSum.length !== 0 ? 0 : 0;
+
+      cSum.forEach((item) => {
+        cEl += item.price;
+      });
+
+      let SUM = 125;
+
+      setCartSum(SUM + mEl + sEl + cEl);
+    };
+
     getSum();
-  },[milkOptions, syroupOptions, chocoladeOptions])
+  }, [milkOptions, syroupOptions, chocoladeOptions]);
 
   let radioButtonsHandler = (event, id) => {
-    if(event.target.name === 'milk'){
+    if (event.target.name === "milk") {
       setMilkOptions(
         milkOptions.map((item) => {
           if (item.id === id) {
@@ -46,7 +64,7 @@ export default function App() {
           return item;
         })
       );
-    } else if(event.target.name === 'syroup') {
+    } else if (event.target.name === "syroup") {
       setSyroupOptions(
         syroupOptions.map((item) => {
           if (item.id === id) {
@@ -57,7 +75,7 @@ export default function App() {
           return item;
         })
       );
-    } else if(event.target.name === 'chocolade') {
+    } else if (event.target.name === "chocolade") {
       setChocoladeOptions(
         chocoladeOptions.map((item) => {
           if (item.id === id && item.checked === false) {
@@ -69,36 +87,17 @@ export default function App() {
         })
       );
     }
-  }
-
-  let getSum = () => {
-    let mSum = milkOptions.filter((item) => item.checked);
-    let sSum = syroupOptions.filter((item) => item.checked);
-    let cSum = chocoladeOptions.filter((item) => item.checked);
-
-    let mEl = mSum.length !== 0 ? mSum[0].price : 0;
-    let sEl = sSum.length !== 0 ? sSum[0].price : 0;
-    let cEl = cSum.length !== 0 ? 0 : 0;
-
-    cSum.forEach(item => {
-      cEl += item.price;
-    })
-  
-
-    let SUM = 125;
-
-    setCartSum(SUM + mEl + sEl + cEl);
   };
 
   let resetHandler = (event) => {
-    if (event.target.getAttribute('name') === "s") {
+    if (event.target.getAttribute("name") === "s") {
       setSyroupOptions(
         syroupOptions.map((item) => {
           item.checked = false;
           return item;
         })
       );
-    } else if (event.target.getAttribute('name') === "c") {
+    } else if (event.target.getAttribute("name") === "c") {
       setChocoladeOptions(
         chocoladeOptions.map((item) => {
           item.checked = false;
@@ -127,13 +126,13 @@ export default function App() {
         chocoladeOptions,
         resetHandler,
         radioButtonsHandler
-      }}>
-      
+      }}
+    >
       <Header />
       <MilkOptions />
       <SyroupOptions />
       <ChocoladeOptions />
       <TotalSum />
-      
     </Context.Provider>
-  )}
+  );
+}
